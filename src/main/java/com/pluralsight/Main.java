@@ -9,7 +9,13 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Deck deck = new Deck();
         Hand dealer = new Hand();
+        ArrayList<Hand> playerHands = new ArrayList<>();
+        ArrayList<Boolean> playerDone = new ArrayList<>();
         int playerAmount = 0;
+        ArrayList<Integer> playerScores = new ArrayList<>();
+
+
+
         while (true) {
             try {
                 System.out.print("Yo chose how many players you want!: ");
@@ -23,9 +29,6 @@ public class Main {
                 sc.nextLine();
             }
         }
-
-        ArrayList<Hand> playerHands = new ArrayList<>();
-        ArrayList<Boolean> playerDone = new ArrayList<>();
 
         for (int i = 0; i < playerAmount; i++) {
             playerDone.add(false);
@@ -113,5 +116,50 @@ public class Main {
             }
             if (allDone) break;
         }
+        s = 0 ;
+        if (dealer.getValue() > 21) {
+            int value = 0;
+            playerScores.add(value);
+        }
+        else {
+            playerScores.add(dealer.getValue());
+        }
+        for (Hand h : playerHands) {
+            s++;
+            if (h.getValue() > 21) {
+                int value = 0;
+                playerScores.add(value);
+                System.out.printf("Player (%d) score is %d\n",s ,h.getValue());
+            }
+            else {
+                playerScores.add(h.getValue());
+                System.out.printf("Player (%d) score is %d\n",s ,h.getValue());
+            }
+        }
+        int max = 0;
+        int winningPlayer = 0;
+        s = 0;
+        for (Hand h : playerHands) {
+            s++;
+            if ( h.getValue() > max) {
+                max = h.getValue();
+                System.out.printf("Player (%d) score is winning\n", s);
+                winningPlayer = s;
+            }
+            else if (h.getValue() > max) {
+                System.out.printf("Player (%d) score is tied\n", s);
+            }
+            else {
+                System.out.printf("Player (%d) score is losing\n", s);
+            }
+        }
+        if (dealer.getValue() > max) {
+            System.out.println("Dealer wins");
+        }
+        System.out.println(winningPlayer + " Wins!");
+
+
     }
+
+
 }
